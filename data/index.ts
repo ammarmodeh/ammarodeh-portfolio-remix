@@ -100,8 +100,9 @@ export const projects = [
       "/aws.svg",
       "/nginx.svg",
     ],
+
     // link: "https://www.intercultural.network",
-    link: "https://i-network.onrender.com",
+    link: "https://i-network.onrender.com/",
   },
   {
     id: 2,
