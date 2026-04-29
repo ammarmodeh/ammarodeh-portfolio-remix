@@ -9,6 +9,8 @@ import {
   Code2,
   Sparkles,
 } from "lucide-react";
+import { motion } from "framer-motion";
+
 
 import { FaAws } from "react-icons/fa";
 import {
@@ -147,164 +149,177 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative min-h-screen bg-black overflow-hidden flex flex-col">
-      {/* Subtle Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px] opacity-50" />
-
+    <section className="relative min-h-[85vh] bg-black overflow-hidden flex flex-col pt-20">
+      {/* Simple Grid Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px] opacity-40" />
+ 
       {/* Main Hero Content */}
-      <div className="relative z-10 flex-1 mx-auto max-w-6xl pt-16 lg:pt-20 pb-8 lg:pb-12 flex items-center justify-center">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start w-full">
-          {/* LEFT COLUMN */}
+      <div className="relative z-10 flex-1 mx-auto w-full px-6 lg:px-12 flex items-center justify-center">
+        <div className="grid lg:grid-cols-[1.2fr,0.8fr] gap-12 lg:gap-20 items-center w-full">
+          
+          {/* LEFT COLUMN - CONTENT */}
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-cyan-500/10 to-violet-500/10 border border-cyan-500/20 rounded-full text-xs font-medium text-cyan-300">
-              <Sparkles className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold text-slate-400 uppercase tracking-widest">
               Full-Stack Developer · Jordan
             </div>
-
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-violet-200 leading-tight">
-              Ammar Odeh
-            </h1>
-
-            <div className="flex items-center gap-3">
-              <div className="h-0.5 w-12 bg-gradient-to-r from-cyan-500 to-violet-500" />
-              <Code2 className="w-5 h-5 text-cyan-400" />
+ 
+            <div className="space-y-2">
+              <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold text-white tracking-tighter leading-tight">
+                Ammar Odeh
+              </h1>
+              <div className="h-1 w-20 bg-white/20 rounded-full mx-auto lg:mx-0" />
             </div>
-
-            <h2 className="text-2xl sm:text-3xl font-light text-slate-300">
-              Building{" "}
-              <span className="font-bold bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
-                Scalable & Beautiful
-              </span>{" "}
-              Web Applications
+ 
+            <h2 className="text-2xl sm:text-3xl font-medium text-slate-300 leading-snug max-w-2xl">
+              Building <span className="text-white font-bold underline decoration-white/20 underline-offset-8">scalable & reliable</span> digital solutions for modern businesses.
             </h2>
-
-            <p className="text-sm sm:text-base text-slate-400 max-w-lg leading-relaxed">
-              Full-stack developer delivering production-grade solutions using
-              modern tools like Next.js, Node.js, Docker, and AWS — with a focus
-              on performance and user experience.
+ 
+            <p className="text-base text-slate-500 max-w-xl leading-relaxed">
+              Software engineer focused on delivering high-performance 
+              web applications using the modern JavaScript ecosystem.
             </p>
-          </div>
 
-          {/* RIGHT COLUMN – Skills + Stats */}
+            <div className="flex items-center gap-3 px-5 py-2.5 bg-white/5 border border-white/10 rounded-xl">
+              <div className="w-2 h-2 bg-emerald-500 rounded-full" />
+              <span className="text-xs font-bold text-slate-300 uppercase tracking-widest">
+                Available for Hire
+              </span>
+            </div>
+          </div>
+ 
+          {/* RIGHT COLUMN – VISUALS (Simplified Skills) */}
           <div className="space-y-8">
-            {/* Skill Bars */}
-            <div className="p-6 bg-white/1 border border-white/10 backdrop-blur-sm rounded-2xl">
-              <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-6 flex items-center gap-2">
-                <div className="w-1.5 h-1.5 bg-cyan-500 rounded-full" />
+            <div className="p-8 bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl">
+              <h3 className="text-xs font-bold text-white uppercase tracking-[0.2em] mb-8">
                 Skill Proficiency
               </h3>
+              
+              <div className="space-y-6">
+                {[
+                  { name: "Frontend", level: 70 },
+                  { name: "Backend", level: 75 },
+                  { name: "DevOps", level: 50 },
+                ].map((skill) => (
+                  <div key={skill.name} className="space-y-2">
+                    <div className="flex justify-between text-[10px] font-bold text-slate-500 uppercase">
+                      <span>{skill.name}</span>
+                      <span>{skill.level}%</span>
+                    </div>
+                    <div className="h-1 bg-white/10 rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-white/60 rounded-full"
+                        style={{ width: `${skill.level}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+ 
+            <div className="grid grid-cols-2 gap-4">
               {[
-                { name: "Frontend", level: 70 },
-                { name: "Backend", level: 75 },
-                { name: "Cloud & DevOps", level: 50 },
-                // { name: "Full-Stack", level: 92 },
-              ].map((skill) => (
-                <div key={skill.name} className="mb-5 last:mb-0">
-                  <div className="flex justify-between text-xs text-slate-400 mb-2">
-                    <span>{skill.name}</span>
-                    <span className="text-cyan-400">{skill.level}%</span>
-                  </div>
-                  <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-gradient-to-r from-cyan-500 to-violet-500 rounded-full transition-all duration-1000"
-                      style={{ width: `${skill.level}%` }}
-                    />
-                  </div>
+                { val: "3+", label: "Years Exp" },
+                { val: "3", label: "Projects" },
+              ].map((stat, i) => (
+                <div key={i} className="p-6 border border-white/5 bg-white/[0.02] rounded-2xl text-center">
+                  <div className="text-3xl font-bold text-white mb-1">{stat.val}</div>
+                  <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{stat.label}</div>
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </div>
 
-            {/* Years & Projects */}
-            <div className="grid grid-cols-2 gap-8">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-cyan-400">3+</div>
-                <p className="text-xs text-slate-500 uppercase tracking-wider mt-2">
-                  Years Experience
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-violet-400">3</div>
-                <p className="text-xs text-slate-500 uppercase tracking-wider mt-2">
-                  Projects Delivered
-                </p>
-              </div>
+      {/* TECH STACK - MODERN COMPACT REDESIGN */}
+      <div className="w-full py-16 border-t border-white/5 bg-black/60 backdrop-blur-md relative overflow-hidden mt-20">
+
+        {/* Decorative background glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none" />
+
+        <div className="w-full px-6 lg:px-12 relative z-10">
+
+          <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6">
+            <div className="space-y-2 text-center md:text-left">
+              <h3 className="text-3xl font-black text-white tracking-tight">
+                Tech Stack
+              </h3>
+              <p className="text-sm text-slate-400 font-medium max-w-md">
+                A comprehensive toolkit for building high-performance, 
+                scalable, and beautiful digital experiences.
+              </p>
+            </div>
+            
+            <div className="flex flex-wrap justify-center gap-3">
+              {allCategories.map(cat => (
+                <span key={cat.title} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                  {cat.title}
+                </span>
+              ))}
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Availability + CTA Buttons */}
-      <div className="flex flex-wrap items-center justify-center gap-5 pb-10">
-        <div className="inline-flex items-center gap-3 px-6 py-3.5 bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30 rounded-xl backdrop-blur-sm hover:bg-green-500/15 transition-all duration-300">
-          <div className="relative">
-            <div className="absolute inset-0 animate-ping rounded-full bg-green-400 opacity-75"></div>
-            <div className="relative w-3 h-3 bg-green-500 rounded-full"></div>
-          </div>
-          <span className="text-sm font-semibold text-green-400 tracking-wide">
-            Available for Hire
-          </span>
-        </div>
+          {/* Marquee Container */}
+          <div className="space-y-6 relative">
+            {/* Masking gradients for smooth edges */}
+            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
 
-        {/* <div className="flex gap-4">
-          <a
-            href="/resume.pdf"
-            className="px-6 py-3.5 bg-white/10 border border-white/20 text-white font-medium rounded-xl hover:bg-white/20 backdrop-blur-sm transition-all duration-300 hover:border-white/30"
-          >
-            Download Resume
-          </a>
-        </div> */}
-      </div>
-
-      {/* TECH STACK WITH ICONS */}
-      <div className="w-full py-14 border-t border-b border-white/5 bg-black/40 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto">
-          <p className="text-center text-sm font-medium text-slate-400 mb-8">
-            Technologies I work with
-          </p>
-
-          {/* Categories Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 items-start">
-            {allCategories.map((category) => (
-              <div
-                key={category.title}
-                className="flex flex-col space-y-6 bg-zinc-900/40 p-5 rounded-2xl border border-white/5 h-full"
+            {/* Row 1: Frontend */}
+            <div className="flex overflow-hidden gap-6 py-2">
+              <motion.div 
+                className="flex flex-none gap-6 items-center"
+                animate={{ x: [0, -1920] }}
+                transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
               >
-                <h4 className="text-xl font-black text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-400 pb-2 border-b border-white/10">
-                  {category.title}
-                </h4>
+                {[...frontendTech.flatMap(s => s.items), ...frontendTech.flatMap(s => s.items), ...frontendTech.flatMap(s => s.items)].map((tech, i) => (
+                  <div key={i} className="flex items-center gap-3 px-5 py-3.5 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 hover:border-cyan-500/30 hover:shadow-[0_0_20px_rgba(6,182,212,0.1)] transition-all duration-300 group">
+                    <tech.icon className={`w-5 h-5 ${tech.color} group-hover:scale-110 transition-transform`} />
+                    <span className="text-sm font-bold text-slate-300 group-hover:text-white transition-colors">{tech.name}</span>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
 
-                <div className="flex flex-col space-y-6">
-                  {category.items.map((sub) => (
-                    <div key={sub.subCategory} className="flex flex-col space-y-3">
-                      <div className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-cyan-500 opacity-80" />
-                        <h5 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                          {sub.subCategory}
-                        </h5>
-                      </div>
-                      <div className="grid gap-2">
-                        {sub.items.map((tech) => (
-                          <div
-                            key={tech.name}
-                            className="group flex items-center gap-3 px-3 py-2.5 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 hover:border-white/20 transition-all duration-300"
-                          >
-                            <tech.icon
-                              className={`w-4 h-4 ${tech.color} group-hover:scale-110 transition-transform`}
-                            />
-                            <span className="text-xs font-semibold text-slate-300">
-                              {tech.name}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
+            {/* Row 2: Backend + Database (Reverse) */}
+            <div className="flex overflow-hidden gap-6 py-2">
+              <motion.div 
+                className="flex flex-none gap-6 items-center"
+                animate={{ x: [-1920, 0] }}
+                transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+              >
+                {/* Mix Backend and Database */}
+                {(() => {
+                  const items = [...backendTech.flatMap(s => s.items), ...databaseTech.flatMap(s => s.items)];
+                  return [...items, ...items, ...items].map((tech, i) => (
+                    <div key={i} className="flex items-center gap-3 px-5 py-3.5 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 hover:border-violet-500/30 hover:shadow-[0_0_20px_rgba(139,92,246,0.1)] transition-all duration-300 group">
+                      <tech.icon className={`w-5 h-5 ${tech.color} group-hover:scale-110 transition-transform`} />
+                      <span className="text-sm font-bold text-slate-300 group-hover:text-white transition-colors">{tech.name}</span>
                     </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+                  ));
+                })()}
+              </motion.div>
+            </div>
+
+            {/* Row 3: DevOps + Tools */}
+            <div className="flex overflow-hidden gap-6 py-2">
+              <motion.div 
+                className="flex flex-none gap-6 items-center"
+                animate={{ x: [0, -1920] }}
+                transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+              >
+                {[...devopsTech.flatMap(s => s.items), ...devopsTech.flatMap(s => s.items), ...devopsTech.flatMap(s => s.items)].map((tech, i) => (
+                  <div key={i} className="flex items-center gap-3 px-5 py-3.5 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 hover:border-emerald-500/30 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] transition-all duration-300 group">
+                    <tech.icon className={`w-5 h-5 ${tech.color} group-hover:scale-110 transition-transform`} />
+                    <span className="text-sm font-bold text-slate-300 group-hover:text-white transition-colors">{tech.name}</span>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
           </div>
         </div>
       </div>
     </section>
+
   );
 }

@@ -1,3 +1,5 @@
+import { FaWordpress, FaElementor } from "react-icons/fa";
+
 export type Project = {
   id: number;
   title: string;
@@ -5,9 +7,10 @@ export type Project = {
   img: string; // Main preview image
   compareBefore?: string; // Design / Figma / Old version
   compareAfter?: string; // Final live app screenshot
-  iconLists: string[];
+  iconLists: (string | React.ComponentType<{ className?: string } | any>)[];
   link: string;
 };
+
 
 export const navItems = [
   { name: "About", link: "#about" },
@@ -143,7 +146,21 @@ export const projects = [
     ],
     link: "https://byebyeetiquette.onrender.com",
   },
+  {
+    id: 4,
+    title: "Perfume E-commerce Website (WordPress & Elementor)",
+    des: "Developed and customized an e-commerce website for perfume retail using WordPress and Elementor, supporting both online sales and in-store operations. Designed responsive, user-friendly pages and optimized UI/UX to enhance customer browsing and purchase experience. Configured product catalog, checkout flow, and order management using WooCommerce. Enabled store management features including inventory updates, order tracking, and content management. Optimized website performance and usability for real-world customers.",
+    img: "/rplka-main.png",
+    iconLists: [
+      FaWordpress,
+      FaElementor,
+    ],
+
+
+    link: "https://rplka.com/",
+  },
 ];
+
 
 export const socialMedia = [
   {

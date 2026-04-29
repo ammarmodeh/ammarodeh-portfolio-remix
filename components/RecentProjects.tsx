@@ -1,8 +1,9 @@
 import { projects } from "@/data";
-import { ArrowRight, X } from "lucide-react";
+import { ArrowRight, X, ExternalLink, Code } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { Compare } from "@/components/ui/compare";
+import { CardBody, CardContainer, CardItem } from "./ui/3d-card";
+import { Compare } from "./ui/compare";
 
 const RecentProjects = () => {
   const [selectedProject, setSelectedProject] = useState<
@@ -11,84 +12,77 @@ const RecentProjects = () => {
 
   return (
     <>
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto">
-          {/* Heading */}
-          <h2 className="text-4xl sm:text-5xl font-bold text-center mb-16">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-400">
-              Projects
-            </span>
-          </h2>
-
+      <section className="py-24 relative overflow-hidden" id="projects">
+        <div className="w-full px-6 lg:px-12 relative z-10">
+          {/* Simple Heading */}
+          <div className="flex flex-col items-center mb-24 space-y-4">
+            <div className="h-1 w-12 bg-white/20 rounded-full" />
+            <h2 className="text-5xl md:text-6xl font-bold text-center text-white tracking-tighter">
+              Featured Projects
+            </h2>
+            <p className="text-slate-500 font-medium">Selected works and case studies</p>
+          </div>
+ 
           {/* Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
             {projects.map((project) => (
-              <button
-                key={project.id}
-                onClick={() => setSelectedProject(project)}
-                className="group block rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl hover:bg-white/10 hover:border-white/20 transition-all duration-500 focus:outline-none focus:ring-4 focus:ring-cyan-500/30"
-              >
-                {/* Compare Slider - Always in the Card */}
-                <div className="relative aspect-video bg-black/40">
-                  <Compare
-                    firstImage={project.compareBefore || project.img}
-                    secondImage={project.compareAfter || project.img}
-                    firstImageClassName="object-cover object-left-top"
-                    secondImageClassname="object-cover object-left-top"
-                    className="h-full w-full"
-                    slideMode="hover"
-                    showHandlebar={true}
-                  />
-                  {/* Dark overlay for text readability */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
-                </div>
-
-                {/* Card Content */}
-                <div className="p-4 space-y-3 text-left">
-                  <h3 className="text-lg font-bold text-white line-clamp-1">
+              <CardContainer key={project.id} className="inter-var w-full">
+                <CardBody className="bg-zinc-950 relative group/card border border-white/5 w-full h-auto rounded-[32px] p-8 transition-all hover:border-white/10">
+                  <CardItem
+                    translateZ="50"
+                    className="text-2xl font-bold text-white mb-4 line-clamp-1"
+                  >
                     {project.title}
-                  </h3>
-
-                  <p className="text-xs text-gray-300 line-clamp-2 leading-relaxed">
+                  </CardItem>
+                  <CardItem
+                    as="p"
+                    translateZ="60"
+                    className="text-slate-500 text-sm font-medium line-clamp-2 leading-relaxed mb-8"
+                  >
                     {project.des}
-                  </p>
-
-                  {/* Tech Icons */}
-                  <div className="flex flex-wrap gap-2">
-                    {project.iconLists.slice(0, 6).map((icon, i) => (
-                      <div
-                        key={i}
-                        className="w-8 h-8 bg-white/10 border border-white/20 rounded-lg flex items-center justify-center"
-                      >
-                        <img
-                          src={icon}
-                          alt="tech"
-                          width={16}
-                          height={16}
-                          className="opacity-90"
-                        />
-                      </div>
-                    ))}
-                    {project.iconLists.length > 6 && (
-                      <span className="text-[10px] text-gray-400 self-center">
-                        +{project.iconLists.length - 6}
-                      </span>
-                    )}
+                  </CardItem>
+                  <CardItem
+                    translateZ="100"
+                    className="w-full mt-4"
+                  >
+                    <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/5 bg-zinc-900">
+                      <img
+                        src={project.img}
+                        className="h-full w-full object-cover grayscale group-hover/card:grayscale-0 transition-all duration-700"
+                        alt="thumbnail"
+                      />
+                    </div>
+                  </CardItem>
+                  
+                  <div className="flex justify-between items-center mt-12">
+                    <div className="flex items-center gap-1">
+                      {project.iconLists.slice(0, 3).map((Icon, i) => (
+                        <div key={i} className="w-8 h-8 rounded-full border border-white/10 bg-black flex items-center justify-center">
+                          {typeof Icon === "string" ? (
+                            <img src={Icon} className="p-2" />
+                          ) : (
+                            <Icon className="w-4 h-4 text-slate-500" />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                    <CardItem
+                      translateZ={20}
+                      as="button"
+                      onClick={() => setSelectedProject(project)}
+                      className="px-6 py-2.5 rounded-xl bg-white text-black text-xs font-bold hover:bg-slate-200 transition-all"
+                    >
+                      View Details
+                    </CardItem>
                   </div>
-
-                  {/* CTA */}
-                  <div className="flex items-center gap-2 pt-2 text-cyan-400 font-semibold text-sm">
-                    <span>View Details</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </div>
-              </button>
+                </CardBody>
+              </CardContainer>
             ))}
           </div>
         </div>
       </section>
-
-      {/* Modal - Only Text + Tech + Live Link (No Compare Here) */}
+ 
+      {/* Modal - Immersive Project Experience (Simplified) */}
       <AnimatePresence>
         {selectedProject && (
           <>
@@ -97,85 +91,99 @@ const RecentProjects = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedProject(null)}
-              className="fixed inset-0 bg-black/90 backdrop-blur-md z-50"
+              className="fixed inset-0 bg-black/98 backdrop-blur-2xl z-[100]"
             />
-
+ 
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="fixed inset-0 z-[60] overflow-hidden p-2 md:p-6"
+              exit={{ opacity: 0, scale: 0.98 }}
+              className="fixed inset-0 z-[110] flex items-center justify-center p-4 md:p-8"
             >
-              <div className="flex h-full items-center justify-center">
-                <div className="relative w-full h-full max-w-7xl bg-zinc-900/95 border border-white/20 rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden backdrop-blur-2xl">
-                  <button
-                    onClick={() => setSelectedProject(null)}
-                    className="absolute top-4 right-4 z-20 p-2 bg-black/50 hover:bg-black/70 rounded-full transition-all"
-                  >
-                    <X className="w-5 h-5 text-white" />
-                  </button>
-
-                  {/* Hero Image - Split screen on desktop */}
-                  <div className="relative h-48 md:h-full md:w-1/2 flex-shrink-0">
+              <div className="relative w-full max-w-7xl max-h-[90vh] bg-zinc-950 border border-white/10 rounded-[32px] overflow-hidden flex flex-col lg:flex-row shadow-2xl pointer-events-auto">
+                
+                {/* Close Button */}
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="absolute top-6 right-6 z-[120] p-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-white backdrop-blur-md transition-all active:scale-95"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+ 
+                {/* Media Section - Left Side */}
+                <div className="relative w-full lg:w-1/2 min-h-[300px] md:min-h-[400px] lg:min-h-[600px] bg-zinc-900 flex-shrink-0">
+                  {selectedProject.compareBefore ? (
+                    <Compare
+                      firstImage={selectedProject.compareBefore}
+                      secondImage={selectedProject.compareAfter || selectedProject.img}
+                      firstImageClassName="object-cover object-top w-full h-full"
+                      secondImageClassname="object-cover object-top w-full h-full"
+                      className="h-full w-full"
+                      slideMode="hover"
+                      showHandlebar={true}
+                    />
+                  ) : (
                     <img
                       src={selectedProject.img}
                       alt={selectedProject.title}
-                      className="absolute inset-0 w-full h-full object-cover"
+                      className="w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-700"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-zinc-900" />
-                  </div>
-
-                  {/* Content Container */}
-                  <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 flex flex-col justify-center">
-                    <h2 className="text-2xl md:text-3xl font-bold text-white">
-                      {selectedProject.title}
-                    </h2>
-
-                    <p className="text-sm md:text-base text-gray-300 leading-relaxed">
-                      {selectedProject.des}
-                    </p>
-
-                    {/* Tech Stack */}
-                    <div>
-                      <h3 className="text-lg font-bold text-white mb-3">
-                        Tech Stack
-                      </h3>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedProject.iconLists.map((icon, i) => (
-                          <div
-                            key={i}
-                            className="w-10 h-10 bg-white/10 border border-white/20 rounded-lg flex items-center justify-center"
-                          >
-                            <img
-                              src={icon}
-                              alt="tech"
-                              width={20}
-                              height={20}
-                            />
-                          </div>
-                        ))}
+                  )}
+                </div>
+ 
+                {/* Content Section - Right Side */}
+                <div className="flex-1 flex flex-col overflow-y-auto bg-zinc-950">
+                   <div className="p-8 md:p-12 lg:p-16 space-y-12">
+                      <div className="space-y-4">
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tighter leading-tight">
+                          {selectedProject.title}
+                        </h2>
+                        <div className="h-1 w-20 bg-white/10 rounded-full" />
                       </div>
-                    </div>
-
-                    {/* Action Button */}
-                    <div className="pt-4">
-                      <a
-                        href={selectedProject.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-violet-600 text-white font-bold text-sm rounded-xl hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300"
-                      >
-                        View Live Project
-                        <ArrowRight className="w-4 h-4" />
-                      </a>
-                    </div>
-                  </div>
+ 
+                      <p className="text-slate-400 text-base md:text-lg leading-relaxed font-medium">
+                        {selectedProject.des}
+                      </p>
+ 
+                      <div className="space-y-6">
+                        <h3 className="text-[10px] font-bold text-white uppercase tracking-[0.3em]">
+                          Tech Stack
+                        </h3>
+                        <div className="flex flex-wrap gap-3">
+                          {selectedProject.iconLists.map((Icon, i) => (
+                            <div
+                              key={i}
+                              className="w-12 h-12 bg-white/5 border border-white/5 rounded-2xl flex items-center justify-center group hover:bg-white/10 transition-all"
+                            >
+                              {typeof Icon === "string" ? (
+                                <img src={Icon} alt="tech" width={24} height={24} className="opacity-50 group-hover:opacity-100 transition-opacity" />
+                              ) : (
+                                <Icon className="w-6 h-6 text-slate-500 group-hover:text-white transition-colors" />
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+ 
+                      <div className="pt-8">
+                        <a
+                          href={selectedProject.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex w-full items-center justify-center gap-3 px-8 py-4 bg-white text-black font-bold text-sm rounded-2xl hover:bg-slate-200 transition-all"
+                        >
+                          Visit Live Project
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
+                      </div>
+                   </div>
                 </div>
               </div>
             </motion.div>
           </>
         )}
       </AnimatePresence>
+
     </>
   );
 };
